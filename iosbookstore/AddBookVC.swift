@@ -98,19 +98,22 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         newBook.desc = txtDesc.text!
         
         //Generate photo path
-        let imageName = UUID().uuidString
+        let currentTimeStamp = String(Int(NSDate().timeIntervalSince1970))
+        let imageName = currentTimeStamp
         let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
         let image = btnImg.currentImage!
         
         //Save photo path as string
-        newBook.photo = imagePath.absoluteString
-        
-        print("Img path \(imagePath)")
+        newBook.photo = imagePath.path
+        print("newBook pathX \(String(describing: newBook.photo))")
+       
         
         //Save image data to photo path
         if let jpegData = image.jpegData(compressionQuality: 0.8) {
             try? jpegData.write(to: imagePath)
         }
+        
+         print("Img pathX written \(imagePath)")
         
         try! self.realm.write
         {
@@ -118,4 +121,31 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             print("Book added: " + newBook.title! + " " + newBook.author!)
         }
     }
+    
+    /*
+    func saveImage(image: UIImage) -> Bool
+    {
+        guard let data = image.jpegData(compressionQuality: 0.8) ?? image.pngData() else {
+            return false
+        }
+        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
+            return false
+        }
+        do {
+            try data.write(to: directory.appendingPathComponent("fileName.png")!)
+            return true
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
+    }
+    
+    func getSavedImage(named: String) -> UIImage?
+    {
+        if let dir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        {
+            return UIImage(contentsOfFile: URL(fileURLWithPath: dir.absoluteString).appendingPathComponent(named).path)
+        }
+        return nil
+    }*/
 }

@@ -62,9 +62,9 @@ class BookListVC: UITableViewController
         let bookItem = bookQuery[indexPath.row]
         cell.lblTitle?.text = bookItem.title
         cell.lblAuthor?.text = bookItem.author
-        cell.imgPhoto.image = UIImage(contentsOfFile: bookItem.photo!)
+        cell.imgPhoto?.image = UIImage(contentsOfFile: bookItem.photo!)
         
-        print("Cell: " + bookItem.photo!)
+        print("CellX: " + bookItem.photo!)
         
         return cell
     }

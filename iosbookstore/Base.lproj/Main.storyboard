@@ -73,43 +73,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bookCell" rowHeight="83" id="mky-5h-du5" customClass="BookTableViewCell" customModule="iosbookstore" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="83"/>
+                            <tableViewCell autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bookCell" rowHeight="104" id="mky-5h-du5" customClass="BookTableViewCell" customModule="iosbookstore" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="104"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mky-5h-du5" id="p6g-jL-jlt">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="83"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="104"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALa-My-lt3">
-                                            <rect key="frame" x="98" y="11" width="290" height="29"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YqX-pA-o94">
-                                            <rect key="frame" x="13" y="0.0" width="77" height="83"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.fill.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="YqX-pA-o94">
+                                            <rect key="frame" x="20" y="11.5" width="116" height="80"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="77" id="dra-Pq-8Db"/>
-                                                <constraint firstAttribute="height" constant="83" id="mAc-L6-HGG"/>
+                                                <constraint firstAttribute="width" constant="116" id="LRu-5g-1Sz"/>
+                                                <constraint firstAttribute="height" constant="104" id="Pab-fz-VQ9"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gln-tx-BDv">
-                                            <rect key="frame" x="98" y="40" width="290" height="19.5"/>
+                                            <rect key="frame" x="144" y="48" width="49" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALa-My-lt3">
+                                            <rect key="frame" x="144" y="11" width="46" height="29"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="YqX-pA-o94" secondAttribute="bottom" id="761-pr-pvH"/>
-                                        <constraint firstItem="ALa-My-lt3" firstAttribute="top" secondItem="p6g-jL-jlt" secondAttribute="topMargin" id="8rf-Ku-qWQ"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Gln-tx-BDv" secondAttribute="trailing" constant="6" id="RoN-O8-NQg"/>
-                                        <constraint firstItem="YqX-pA-o94" firstAttribute="leading" secondItem="p6g-jL-jlt" secondAttribute="leading" constant="13" id="aLJ-G2-cJ5"/>
-                                        <constraint firstItem="YqX-pA-o94" firstAttribute="top" secondItem="p6g-jL-jlt" secondAttribute="top" id="cQt-jq-MDv"/>
-                                        <constraint firstItem="Gln-tx-BDv" firstAttribute="leading" secondItem="YqX-pA-o94" secondAttribute="trailing" constant="8" id="e7P-3Z-725"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="ALa-My-lt3" secondAttribute="trailing" constant="6" id="hcQ-J6-a1i"/>
-                                        <constraint firstItem="ALa-My-lt3" firstAttribute="leading" secondItem="YqX-pA-o94" secondAttribute="trailing" constant="8" id="ywe-oM-BPB"/>
-                                        <constraint firstItem="Gln-tx-BDv" firstAttribute="top" secondItem="ALa-My-lt3" secondAttribute="bottom" id="zhl-7Z-2f1"/>
+                                        <constraint firstItem="YqX-pA-o94" firstAttribute="top" secondItem="p6g-jL-jlt" secondAttribute="topMargin" id="Nsl-Vn-Fj7"/>
+                                        <constraint firstItem="YqX-pA-o94" firstAttribute="leading" secondItem="p6g-jL-jlt" secondAttribute="leadingMargin" id="b9Z-G6-OmP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="YqX-pA-o94" secondAttribute="bottom" id="bHK-ko-788"/>
+                                        <constraint firstItem="Gln-tx-BDv" firstAttribute="leading" secondItem="YqX-pA-o94" secondAttribute="trailing" constant="8" id="dQd-0d-G93"/>
+                                        <constraint firstItem="ALa-My-lt3" firstAttribute="top" secondItem="p6g-jL-jlt" secondAttribute="topMargin" id="hsT-jo-uJh"/>
+                                        <constraint firstItem="ALa-My-lt3" firstAttribute="leading" secondItem="YqX-pA-o94" secondAttribute="trailing" constant="8" id="i36-BY-eFk"/>
+                                        <constraint firstItem="Gln-tx-BDv" firstAttribute="top" secondItem="ALa-My-lt3" secondAttribute="bottom" constant="8" id="rTu-M0-GlS"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -248,4 +246,7 @@
             <point key="canvasLocation" x="131.8840579710145" y="132.58928571428572"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="folder.fill.badge.plus" catalog="system" width="128" height="86"/>
+    </resources>
 </document>
