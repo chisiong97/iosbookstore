@@ -26,9 +26,9 @@ class BookListVC: UITableViewController
     let realm = try! Realm()
     
     var bookQuery: Results<Book> {
-      get {
-        return realm.objects(Book.self)
-      }
+        get {
+            return realm.objects(Book.self)
+        }
     }
     
     override func viewDidLoad()
@@ -41,18 +41,23 @@ class BookListVC: UITableViewController
         super.viewWillAppear(animated)
         bookList.reloadData()
     }
-
+    
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int
     {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return bookQuery.count
     }
-
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookCell", for: indexPath) as! BookTableViewCell
@@ -62,7 +67,10 @@ class BookListVC: UITableViewController
         let bookItem = bookQuery[indexPath.row]
         cell.lblTitle?.text = bookItem.title
         cell.lblAuthor?.text = bookItem.author
-        cell.imgPhoto?.image = UIImage(contentsOfFile: bookItem.photo!)
+        
+        let imagePath = getDocumentsDirectory().appendingPathComponent(bookItem.photo!)
+        
+        cell.imgPhoto?.image = UIImage(contentsOfFile: imagePath.path)
         
         print("CellX: " + bookItem.photo!)
         
