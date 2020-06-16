@@ -18,6 +18,7 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet weak var txtAuthor: UITextField!
     @IBOutlet weak var txtDesc: UITextField!
     let picker = UIImagePickerController()
+    var navTitle = "Add Book"
     
     let realm = try! Realm()
     
@@ -26,12 +27,38 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        navigationItem.title = navTitle
+    }
+    
     @IBAction func btnImg(_ sender: Any)
     {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Camera", style: .default) { _ in
+        alert.addAction(UIAlertAction(title: "Camera", style: .default)
+        { _ in
             print("Camera clicked")
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera)
+            {
+                self.picker.allowsEditing = true
+                self.picker.sourceType = .camera
+                self.picker.mediaTypes = ["public.image"]
+                self.picker.delegate = self
+                self.present(self.picker, animated: true)
+            }
+            else
+            {
+                let alertController = UIAlertController(title: nil, message: "Device has no camera.", preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (alert: UIAlertAction!) in
+                })
+                
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
         })
         
         alert.addAction(UIAlertAction(title: "Library", style: .default) { _ in
@@ -107,7 +134,6 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         //Save photo path as string
         newBook.photo = imageName
         print("newBook pathX \(String(describing: newBook.photo))")
-        
         
         //Save image data to photo path
         if let jpegData = image.jpegData(compressionQuality: 0.8) {

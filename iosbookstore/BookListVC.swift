@@ -22,6 +22,8 @@ class BookListVC: UITableViewController
 {
     //MARK: TableView Properties
     @IBOutlet var bookList: UITableView!
+    @IBOutlet weak var btnAdd: UIBarButtonItem!
+    var navTitle = ""
     
     let realm = try! Realm()
     
@@ -53,7 +55,8 @@ class BookListVC: UITableViewController
         return bookQuery.count
     }
     
-    func getDocumentsDirectory() -> URL {
+    func getDocumentsDirectory() -> URL
+    {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
@@ -77,7 +80,22 @@ class BookListVC: UITableViewController
         return cell
     }
     
-    //Swipe to delete
+    //MARK: Cell actions
+    ///Cell selected
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        NSLog("You selected cell number: \(indexPath.row)!")
+        
+        let selectedBook = bookQuery[indexPath.row]
+        navTitle = selectedBook.title!
+        self.performSegue(withIdentifier: "segueAddBook", sender: self)
+        /*
+        let destinationVC = AddBookVC()
+        destinationVC.navTitle = navTitle!
+        destinationVC.performSegue(withIdentifier: "segueAddBook", sender:self)*/
+        
+    }
+    
+    ///Swipe to delete
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
     {
         return true
@@ -96,5 +114,20 @@ class BookListVC: UITableViewController
             bookList.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
             bookList.reloadData()
         }
+    }
+    
+    //MARK: Navbar Actions
+    
+    @IBAction func btnAdd(_ sender: Any )
+    {
+        self.performSegue(withIdentifier: "segueAddBook", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        let viewController = segue.destination as! AddBookVC
+
+        viewController.navTitle = navTitle
+
     }
 }
