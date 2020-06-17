@@ -67,7 +67,6 @@ class BookListVC: UITableViewController
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookCell", for: indexPath) as! BookTableViewCell
         
         // Configure the cell...
-        
         let bookItem = bookQuery[indexPath.row]
         cell.lblTitle?.text = bookItem.title
         cell.lblAuthor?.text = bookItem.author
@@ -90,10 +89,6 @@ class BookListVC: UITableViewController
         navTitle = selectedBook.title!
         currentBook = selectedBook
         self.performSegue(withIdentifier: "segueAddBook", sender: self)
-        /*
-        let destinationVC = AddBookVC()
-        destinationVC.navTitle = navTitle!
-        destinationVC.performSegue(withIdentifier: "segueAddBook", sender:self)*/
         
     }
     
@@ -111,8 +106,14 @@ class BookListVC: UITableViewController
             let delItem = bookQuery[indexPath.row]
             try! self.realm.write
             {
+                let imageName = delItem.photo
+                let imagePath = getDocumentsDirectory().appendingPathComponent(imageName!)
+                let fileManager = FileManager.default
                 realm.delete(delItem)
+                
                 //delete actual photo in directory
+                try fileManager.removeItem(atPath: imagePath.path)
+                
             }
             bookList.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
             bookList.reloadData()
@@ -124,15 +125,19 @@ class BookListVC: UITableViewController
     @IBAction func btnAdd(_ sender: Any )
     {
         navTitle = "Add Book"
+        
         self.performSegue(withIdentifier: "segueAddBook", sender: self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+    //MARK: Pass data to AddBookVC
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        
         let viewController = segue.destination as! AddBookVC
 
         viewController.navTitle = navTitle
+        
         viewController.currentBook = currentBook
-
+        
     }
 }

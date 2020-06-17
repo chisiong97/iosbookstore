@@ -23,6 +23,7 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     var currentBook = Book()
     var edit = false
     
+    //MARK: Realm query
     let realm = try! Realm()
     
     var bookQuery: Results<Book> {
@@ -31,7 +32,7 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         }
     }
     
-    
+    //MARK: View
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -42,11 +43,12 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         super.viewWillAppear(animated)
         navigationItem.title = navTitle
         
-        if (navTitle != "Add Book") {
-            
+        //View & Edit mode
+        if (navTitle != "Add Book")
+        {
             let imagePath = getDocumentsDirectory().appendingPathComponent(currentBook.photo!)
-            
             btnImg.setImage(UIImage(contentsOfFile: imagePath.path), for: .normal)
+            
             txtTitle.text = currentBook.title
             txtAuthor.text = currentBook.author
             txtDesc.text = currentBook.desc
@@ -59,12 +61,12 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             navigationItem.rightBarButtonItem = UIBarButtonItem(
                 barButtonSystemItem: UIBarButtonItem.SystemItem.edit,
                 target: self,
-                action: #selector(viewMode)
+                action: #selector(editMode)
             )
         }
     }
     
-    @objc func viewMode()
+    @objc func editMode()
     {
         btnImg.isUserInteractionEnabled = true
         txtTitle.isUserInteractionEnabled = true
@@ -80,7 +82,7 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     @objc func updateBook ()
     {
-         edit = true
+        edit = true
         let update = Book()
         query(bookItem : update)
         endView()
@@ -142,27 +144,9 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
     }
     
-    
-    /*
-     func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!)
-     {
-     print("PickerController")
-     imagePicker.dismiss(animated: true, completion: nil)
-     btnImg.setImage(editingInfo[UIImagePickerController.InfoKey.originalImage] as? UIImage, for: .normal)
-     }*/
-    
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
         guard let image = info[.editedImage] as? UIImage else { return }
-        
-        /*
-         let imageName = UUID().uuidString
-         let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
-         
-         if let jpegData = image.jpegData(compressionQuality: 0.8) {
-         try? jpegData.write(to: imagePath)
-         }*/
-        
         
         dismiss(animated: true)
         
@@ -170,7 +154,8 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         print("Button picture set")
     }
     
-    func getDocumentsDirectory() -> URL {
+    func getDocumentsDirectory() -> URL
+    {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
