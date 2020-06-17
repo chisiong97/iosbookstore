@@ -17,21 +17,81 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet weak var txtTitle: UITextField!
     @IBOutlet weak var txtAuthor: UITextField!
     @IBOutlet weak var txtDesc: UITextField!
+    @IBOutlet weak var btnDone: UIBarButtonItem!
     let picker = UIImagePickerController()
     var navTitle = "Add Book"
+    var currentBook = Book()
+    var edit = false
     
     let realm = try! Realm()
+    
+    var bookQuery: Results<Book> {
+        get {
+            return realm.objects(Book.self)
+        }
+    }
+    
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
         navigationItem.title = navTitle
+        
+        if (navTitle != "Add Book") {
+            
+            let imagePath = getDocumentsDirectory().appendingPathComponent(currentBook.photo!)
+            
+            btnImg.setImage(UIImage(contentsOfFile: imagePath.path), for: .normal)
+            txtTitle.text = currentBook.title
+            txtAuthor.text = currentBook.author
+            txtDesc.text = currentBook.desc
+            
+            btnImg.isUserInteractionEnabled = false
+            txtTitle.isUserInteractionEnabled = false
+            txtAuthor.isUserInteractionEnabled = false
+            txtDesc.isUserInteractionEnabled = false
+            
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: UIBarButtonItem.SystemItem.edit,
+                target: self,
+                action: #selector(viewMode)
+            )
+        }
     }
+    
+    @objc func viewMode()
+    {
+        btnImg.isUserInteractionEnabled = true
+        txtTitle.isUserInteractionEnabled = true
+        txtAuthor.isUserInteractionEnabled = true
+        txtDesc.isUserInteractionEnabled = true
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: UIBarButtonItem.SystemItem.done,
+            target: self,
+            action: #selector(updateBook)
+        )
+    }
+    
+    @objc func updateBook ()
+    {
+         edit = true
+        let update = Book()
+        query(bookItem : update)
+        endView()
+    }
+    
+    @objc func endView()
+    {
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     @IBAction func btnImg(_ sender: Any)
     {
@@ -117,11 +177,22 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     @IBAction func btnDone(_ sender: Any)
     {
-        let newBook = Book()
-        
-        newBook.title = txtTitle.text!
-        newBook.author = txtAuthor.text!
-        newBook.desc = txtDesc.text!
+        if navTitle == "Add Book"
+        {
+            let newBook = Book()
+            
+            query(bookItem : newBook)
+          
+            endView()
+            
+        }
+    }
+    
+    func query(bookItem : Book)
+    {
+        bookItem.title = txtTitle.text!
+        bookItem.author = txtAuthor.text!
+        bookItem.desc = txtDesc.text!
         
         //Generate photo path
         let currentTimeStamp = String(Int(NSDate().timeIntervalSince1970))
@@ -132,8 +203,8 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         let image = btnImg.currentImage!
         
         //Save photo path as string
-        newBook.photo = imageName
-        print("newBook pathX \(String(describing: newBook.photo))")
+        bookItem.photo = imageName
+        print("newBook pathX \(String(describing: bookItem.photo))")
         
         //Save image data to photo path
         if let jpegData = image.jpegData(compressionQuality: 0.8) {
@@ -142,13 +213,44 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         print("Img pathX written \(imagePath)")
         
-        try! self.realm.write
+        if edit == true
         {
-            realm.add(newBook)
-            print("Book added: " + newBook.title! + " " + newBook.author!)
+            let realm = try! Realm()
+            let updateBook = realm.object(ofType: Book.self, forPrimaryKey: currentBook.bookID)
+            print("Update: " + (updateBook?.title)!)
+            
+            //bookItem.bookID = updateBook!.bookID
+            
+            
+            try! self.realm.write
+            {
+                updateBook?.title = bookItem.title
+                updateBook?.author = bookItem.author
+                updateBook?.desc = bookItem.desc
+                updateBook?.photo = bookItem.photo
+                print("Book updated:\(updateBook!.bookID)" + " " + updateBook!.title! + " " + updateBook!.author!)
+            }
+        }
+        else
+        {
+            if (bookQuery.count > 0)
+            {
+                let last = bookQuery.last
+                let lastID = last?.bookID
+                let currentID = lastID! + 1
+                bookItem.bookID = currentID
+            }
+            else
+            {
+                bookItem.bookID = 0
+            }
+            
+            try! self.realm.write
+            {
+                realm.add(bookItem)
+                print("Book added:\(bookItem.bookID)" + " " + bookItem.title! + " " + bookItem.author!)
+            }
         }
         
-        self.dismiss(animated: true, completion: nil)
     }
-    
 }

@@ -24,6 +24,7 @@ class BookListVC: UITableViewController
     @IBOutlet var bookList: UITableView!
     @IBOutlet weak var btnAdd: UIBarButtonItem!
     var navTitle = ""
+    var currentBook = Book()
     
     let realm = try! Realm()
     
@@ -87,6 +88,7 @@ class BookListVC: UITableViewController
         
         let selectedBook = bookQuery[indexPath.row]
         navTitle = selectedBook.title!
+        currentBook = selectedBook
         self.performSegue(withIdentifier: "segueAddBook", sender: self)
         /*
         let destinationVC = AddBookVC()
@@ -110,6 +112,7 @@ class BookListVC: UITableViewController
             try! self.realm.write
             {
                 realm.delete(delItem)
+                //delete actual photo in directory
             }
             bookList.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
             bookList.reloadData()
@@ -120,6 +123,7 @@ class BookListVC: UITableViewController
     
     @IBAction func btnAdd(_ sender: Any )
     {
+        navTitle = "Add Book"
         self.performSegue(withIdentifier: "segueAddBook", sender: self)
     }
     
@@ -128,6 +132,7 @@ class BookListVC: UITableViewController
         let viewController = segue.destination as! AddBookVC
 
         viewController.navTitle = navTitle
+        viewController.currentBook = currentBook
 
     }
 }

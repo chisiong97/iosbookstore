@@ -9,7 +9,14 @@
 import Foundation
 import RealmSwift
 
-class Book: Object {
+class Book: Object
+{
+    @objc dynamic var bookID = 0
+    
+    override static func primaryKey() -> String? {
+      return "bookID"
+    }
+    
     @objc dynamic var title: String?
     @objc dynamic var author: String?
     @objc dynamic var desc: String?

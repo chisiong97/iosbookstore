@@ -219,6 +219,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="btnDone" destination="x8l-4p-K6I" id="Fzp-Q0-U5Q"/>
                         <outlet property="btnImg" destination="qm8-kK-D5h" id="fUh-bi-7sg"/>
                         <outlet property="txtAuthor" destination="Ae3-QS-FFS" id="h0M-fZ-zEi"/>
                         <outlet property="txtDesc" destination="dwh-1C-Qg0" id="W50-sS-JG5"/>
