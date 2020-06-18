@@ -19,6 +19,7 @@ class LoginVC: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         print(Realm.Configuration.defaultConfiguration.fileURL)
         // Do any additional setup after loading the view.
     }
