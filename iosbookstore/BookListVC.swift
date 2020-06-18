@@ -111,10 +111,12 @@ class BookListVC: UITableViewController
                 let imageName = delItem.photo
                 let imagePath = getDocumentsDirectory().appendingPathComponent(imageName!)
                 let fileManager = FileManager.default
-                realm.delete(delItem)
                 
                 //delete actual photo in directory
                 try fileManager.removeItem(atPath: imagePath.path)
+                
+                //delete item in realmdb
+                realm.delete(delItem)
                 
             }
             bookList.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
@@ -136,7 +138,7 @@ class BookListVC: UITableViewController
     {
         
         let viewController = segue.destination as! AddBookVC
-
+        
         viewController.navTitle = navTitle
         
         viewController.currentBook = currentBook

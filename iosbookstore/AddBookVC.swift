@@ -19,6 +19,7 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet weak var txtDesc: UITextField!
     @IBOutlet weak var btnDone: UIBarButtonItem!
     let picker = UIImagePickerController()
+    var oriImage : UIImage!
     var navTitle = "Add Book"
     var currentBook = Book()
     var edit = false
@@ -50,6 +51,7 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         {
             let imagePath = getDocumentsDirectory().appendingPathComponent(currentBook.photo!)
             btnImg.setImage(UIImage(contentsOfFile: imagePath.path), for: .normal)
+            oriImage = btnImg.currentImage
             
             txtTitle.text = currentBook.title
             txtAuthor.text = currentBook.author
@@ -128,7 +130,6 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         alert.addAction(UIAlertAction(title: "Library", style: .default) { _ in
             print("Library clicked")
             
-            
             self.picker.allowsEditing = true
             self.picker.sourceType = .photoLibrary
             self.picker.mediaTypes = ["public.image"]
@@ -164,14 +165,39 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     @IBAction func btnDone(_ sender: Any)
     {
-        if navTitle == "Add Book"
+        //If title is empty
+        if (txtTitle.text?.trimmingCharacters(in: .whitespaces).isEmpty)! {
+            print("Title is empty!")
+            
+            let alertController = UIAlertController(title: nil, message: "Title cannot be empty!", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (alert: UIAlertAction!) in
+            })
+            
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+            //If image is empty
+        else if(btnImg.currentImage == nil)
+        {
+            print("Photo is empty!")
+            
+            let alertController = UIAlertController(title: nil, message: "Photo cannot be empty!", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (alert: UIAlertAction!) in
+            })
+            
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else
         {
             let newBook = Book()
             
             query(bookItem : newBook)
-          
-            endView()
             
+            endView()
         }
     }
     
@@ -181,33 +207,50 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         bookItem.author = txtAuthor.text!
         bookItem.desc = txtDesc.text!
         
-        //Generate photo path
-        let currentTimeStamp = String(Int(NSDate().timeIntervalSince1970))
-        let imageName = currentTimeStamp
-        
-        //getDocumentsDirectory return unique path every time its launched, thus saving imageName only
-        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
-        let image = btnImg.currentImage!
-        
-        //Save photo path as string
-        bookItem.photo = imageName
-        print("newBook pathX \(String(describing: bookItem.photo))")
-        
-        //Save image data to photo path
-        if let jpegData = image.jpegData(compressionQuality: 0.8) {
-            try? jpegData.write(to: imagePath)
+        if btnImg.currentImage != oriImage
+        {
+            print("Image different!")
+            //Delete original image
+            if edit
+            {
+                let oriImageName = currentBook.photo
+                let oriImagePath = getDocumentsDirectory().appendingPathComponent(oriImageName!)
+                let fileManager = FileManager.default
+                
+                //delete actual photo in directory
+                try! fileManager.removeItem(atPath: oriImagePath.path)
+            }
+            
+            //Generate photo path
+            let currentTimeStamp = String(Int(NSDate().timeIntervalSince1970))
+            let imageName = currentTimeStamp
+            
+            //getDocumentsDirectory return unique path every time its launched, thus saving imageName only
+            let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
+            let image = btnImg.currentImage!
+            
+            //Save photo path as string
+            bookItem.photo = imageName
+            print("newBook pathX \(String(describing: bookItem.photo))")
+            
+            //Save image data to photo path
+            if let jpegData = image.jpegData(compressionQuality: 0.8)
+            {
+                try? jpegData.write(to: imagePath)
+            }
+            
+            print("Img pathX written \(imagePath)")
         }
-        
-        print("Img pathX written \(imagePath)")
+        else
+        {
+            bookItem.photo = currentBook.photo
+        }
         
         if edit == true
         {
             let realm = try! Realm()
             let updateBook = realm.object(ofType: Book.self, forPrimaryKey: currentBook.bookID)
             print("Update: " + (updateBook?.title)!)
-            
-            //bookItem.bookID = updateBook!.bookID
-            
             
             try! self.realm.write
             {
