@@ -28,8 +28,10 @@ class BookListVC: UITableViewController
     
     let realm = try! Realm()
     
-    var bookQuery: Results<Book> {
-        get {
+    var bookQuery: Results<Book>
+    {
+        get
+        {
             return realm.objects(Book.self)
         }
     }

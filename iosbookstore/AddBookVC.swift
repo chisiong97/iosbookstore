@@ -26,8 +26,10 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     //MARK: Realm query
     let realm = try! Realm()
     
-    var bookQuery: Results<Book> {
-        get {
+    var bookQuery: Results<Book>
+    {
+        get
+        {
             return realm.objects(Book.self)
         }
     }
