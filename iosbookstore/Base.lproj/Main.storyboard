@@ -207,7 +207,10 @@
                                                             <constraint firstAttribute="height" constant="34" id="TSp-NX-JQY"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="p4v-mp-bc6" id="Fxj-w7-O7w"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -227,7 +230,10 @@
                                                             <constraint firstAttribute="width" constant="173" id="q12-N6-rgX"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="p4v-mp-bc6" id="6PO-oL-jwy"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -247,7 +253,10 @@
                                                             <constraint firstAttribute="width" constant="173" id="OsC-3G-G1k"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="p4v-mp-bc6" id="aPD-c2-2lP"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>

@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate , UITextFieldDelegate
 {
     
     //MARK: Properties
@@ -39,6 +39,8 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -282,5 +284,35 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             }
         }
         
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification)
+    {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification)
+    {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        switch textField
+        {
+        case txtTitle:
+            txtAuthor.becomeFirstResponder()
+        case txtAuthor:
+            txtDesc.becomeFirstResponder()
+        default:
+            textField.resignFirstResponder()
+        }
+        return false
     }
 }
