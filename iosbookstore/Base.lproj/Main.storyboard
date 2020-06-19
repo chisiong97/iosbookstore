@@ -60,7 +60,7 @@
                                             <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         </state>
                                         <connections>
-                                            <action selector="btnLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Pz-cd-uys"/>
+                                            <action selector="btnLoginOnClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5dq-HK-9T0"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -82,7 +82,6 @@
                         <barButtonItem key="backBarButtonItem" title="Logout" id="mos-93-UOd"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="btnLogin" destination="yYP-1g-6dE" id="aAB-ID-RbZ"/>
                         <outlet property="txtID" destination="IwS-A5-s2k" id="t8e-s7-Mcz"/>
                         <outlet property="txtPassword" destination="4A8-w8-JzS" id="76d-yQ-wxQ"/>
                         <segue destination="l3t-y8-tpb" kind="show" identifier="segueLogin" id="Mji-BC-pAh"/>
@@ -154,13 +153,12 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="hay-NG-e4x"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="brx-49-Fss">
                             <connections>
-                                <action selector="btnAdd:" destination="l3t-y8-tpb" id="K8C-BJ-0cD"/>
+                                <action selector="btnAddOnClicked:" destination="l3t-y8-tpb" id="8xC-Rq-Ifn"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="bookList" destination="Nf7-pU-y4l" id="Njh-3K-ipC"/>
-                        <outlet property="btnAdd" destination="brx-49-Fss" id="cC8-jg-dzc"/>
                         <outlet property="tableView" destination="Nf7-pU-y4l" id="7oF-MI-vdM"/>
                         <segue destination="p4v-mp-bc6" kind="show" identifier="segueAddBook" id="Cq4-fP-Ihq"/>
                     </connections>
@@ -191,7 +189,7 @@
                                             <color key="titleColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="btnImg:" destination="p4v-mp-bc6" eventType="touchUpInside" id="wQv-Fu-Xkp"/>
+                                            <action selector="btnImgOnClicked:" destination="p4v-mp-bc6" eventType="touchUpInside" id="4Ju-Qr-atD"/>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="7rS-4y-NsS">
@@ -281,12 +279,12 @@
                     <navigationItem key="navigationItem" title="Add Book" id="dGj-jp-Ho8">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="x8l-4p-K6I">
                             <connections>
-                                <action selector="btnDone:" destination="p4v-mp-bc6" id="yMq-7X-siK"/>
+                                <action selector="btnDoneOnClicked:" destination="p4v-mp-bc6" id="GZ7-sp-h0o"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="btnDone" destination="x8l-4p-K6I" id="Fzp-Q0-U5Q"/>
+                        <outlet property="btnDone" destination="x8l-4p-K6I" id="HVx-Hc-T0E"/>
                         <outlet property="btnImg" destination="qm8-kK-D5h" id="fUh-bi-7sg"/>
                         <outlet property="txtAuthor" destination="Ae3-QS-FFS" id="h0M-fZ-zEi"/>
                         <outlet property="txtDesc" destination="dwh-1C-Qg0" id="W50-sS-JG5"/>

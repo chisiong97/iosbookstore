@@ -18,6 +18,8 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet weak var txtAuthor: UITextField!
     @IBOutlet weak var txtDesc: UITextField!
     @IBOutlet weak var btnDone: UIBarButtonItem!
+    
+    
     let picker = UIImagePickerController()
     var oriImage : UIImage!
     var navTitle = "Add Book"
@@ -97,11 +99,10 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @objc func endView()
     {
         navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
     }
     
-    
-    @IBAction func btnImg(_ sender: Any)
+    @IBAction func btnImgOnClicked(_ sender: Any)
     {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -146,8 +147,8 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         })
         
         present(alert, animated: true)
-        
     }
+    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
     {
@@ -165,8 +166,7 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         return paths[0]
     }
     
-    @IBAction func btnDone(_ sender: Any)
-    {
+    @IBAction func btnDoneOnClicked(_ sender: Any) {
         //If title is empty
         if (txtTitle.text?.trimmingCharacters(in: .whitespaces).isEmpty)! {
             print("Title is empty!")
@@ -202,6 +202,7 @@ class AddBookVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             endView()
         }
     }
+  
     
     func query(bookItem : Book)
     {

@@ -14,17 +14,17 @@ class LoginVC: UIViewController
     
     @IBOutlet weak var txtID: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
-    @IBOutlet weak var btnLogin: UIButton!
+    
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         print(Realm.Configuration.defaultConfiguration.fileURL)
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func btnLogin(_ sender: UIButton)
+    
+    @IBAction func btnLoginOnClicked(_ sender: Any)
     {
         self.performSegue(withIdentifier: "segueLogin", sender: self)
         /*
@@ -47,7 +47,6 @@ class LoginVC: UIViewController
          alertController.addAction(okAction)
          self.present(alertController, animated: true, completion: nil)
          }*/
-        
     }
     
     override func viewWillAppear(_ animated: Bool)

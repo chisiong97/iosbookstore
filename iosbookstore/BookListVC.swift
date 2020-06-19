@@ -22,7 +22,7 @@ class BookListVC: UITableViewController
 {
     //MARK: TableView Properties
     @IBOutlet var bookList: UITableView!
-    @IBOutlet weak var btnAdd: UIBarButtonItem!
+    
     var navTitle = ""
     var currentBook = Book()
     
@@ -85,7 +85,8 @@ class BookListVC: UITableViewController
     
     //MARK: Cell actions
     ///Cell selected
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
         NSLog("You selected cell number: \(indexPath.row)!")
         
         let selectedBook = bookQuery[indexPath.row]
@@ -126,8 +127,7 @@ class BookListVC: UITableViewController
     }
     
     //MARK: Navbar Actions
-    
-    @IBAction func btnAdd(_ sender: Any )
+    @IBAction func btnAddOnClicked(_ sender: Any)
     {
         navTitle = "Add Book"
         
