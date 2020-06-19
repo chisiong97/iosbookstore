@@ -24,7 +24,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="H5s-qq-qS8">
-                                <rect key="frame" x="65" y="375" width="183" height="187.5"/>
+                                <rect key="frame" x="115.5" y="354.5" width="183" height="187.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPT-4O-jrF">
                                         <rect key="frame" x="0.0" y="0.0" width="183" height="38.5"/>
@@ -73,13 +73,13 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="H5s-qq-qS8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="65" id="2ua-Yz-RLX"/>
-                            <constraint firstItem="H5s-qq-qS8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="287" id="cuW-1W-keM"/>
+                            <constraint firstItem="H5s-qq-qS8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fXh-ZM-m4Q"/>
+                            <constraint firstItem="H5s-qq-qS8" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="x1C-qz-Xk1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="ziX-RU-WYX">
-                        <barButtonItem key="backBarButtonItem" title="Logout" id="mos-93-UOd"/>
+                        <barButtonItem key="backBarButtonItem" title=" " id="fXD-nE-93n"/>
                     </navigationItem>
                     <connections>
                         <outlet property="txtID" destination="IwS-A5-s2k" id="t8e-s7-Mcz"/>
@@ -150,7 +150,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="SS Bookstore" id="tDH-VD-TiT">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="hay-NG-e4x"/>
+                        <barButtonItem key="backBarButtonItem" title="Back" id="hay-NG-e4x">
+                            <connections>
+                                <action selector="btnLogoutOnClicked:" destination="l3t-y8-tpb" id="VV2-7e-jIb"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="brx-49-Fss">
                             <connections>
                                 <action selector="btnAddOnClicked:" destination="l3t-y8-tpb" id="8xC-Rq-Ifn"/>

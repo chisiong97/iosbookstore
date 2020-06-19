@@ -40,6 +40,21 @@ class BookListVC: UITableViewController
     {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
+        
+        self.navigationItem.hidesBackButton = true
+
+        let newBackButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItem.Style.plain, target: self, action: #selector(BookListVC.back(sender:)))
+        
+        self.navigationItem.leftBarButtonItem = newBackButton
+    }
+    
+    @objc func back(sender: UIBarButtonItem) {
+        // Clear db
+        try! realm.write {
+          realm.deleteAll()
+        }
+        // Go back to the previous ViewController
+        navigationController?.popViewController(animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -144,5 +159,11 @@ class BookListVC: UITableViewController
         
         viewController.currentBook = currentBook
         
+    }
+    @IBAction func btnLogoutOnClicked(_ sender: Any) {
+       try! realm.write {
+          realm.deleteAll()
+        }
+        navigationController?.popViewController(animated: true)
     }
 }
