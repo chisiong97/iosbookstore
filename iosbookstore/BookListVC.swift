@@ -48,7 +48,8 @@ class BookListVC: UITableViewController
         self.navigationItem.leftBarButtonItem = newBackButton
     }
     
-    @objc func back(sender: UIBarButtonItem) {
+    @objc func back(sender: UIBarButtonItem)
+    {
         // Clear db
         try! realm.write {
           realm.deleteAll()

@@ -189,7 +189,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="58" translatesAutoresizingMaskIntoConstraints="NO" id="TqL-JC-bmz">
-                                <rect key="frame" x="64.5" y="176" width="285" height="409"/>
+                                <rect key="frame" x="64.5" y="243.5" width="285" height="409"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qm8-kK-D5h">
                                         <rect key="frame" x="56.5" y="0.0" width="172" height="183"/>
@@ -281,14 +281,14 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="7rS-4y-NsS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qm8-kK-D5h" secondAttribute="bottom" constant="58" id="BfZ-mz-9dm"/>
+                                    <constraint firstItem="7rS-4y-NsS" firstAttribute="top" secondItem="qm8-kK-D5h" secondAttribute="bottom" constant="58" id="BfZ-mz-9dm"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="TqL-JC-bmz" firstAttribute="top" secondItem="1jz-eY-jZS" secondAttribute="top" multiplier="2" id="Cr3-9P-hEc"/>
                             <constraint firstItem="TqL-JC-bmz" firstAttribute="centerX" secondItem="kza-LD-3HH" secondAttribute="centerX" id="Ogh-FQ-ydW"/>
+                            <constraint firstItem="TqL-JC-bmz" firstAttribute="centerY" secondItem="kza-LD-3HH" secondAttribute="centerY" id="UJF-I7-mpg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1jz-eY-jZS"/>
                     </view>
